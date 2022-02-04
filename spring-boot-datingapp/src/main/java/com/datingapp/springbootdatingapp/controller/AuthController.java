@@ -73,7 +73,7 @@ public class AuthController {
 		AuthResponse authResponse = new AuthResponse();
 		authResponse.setToken(token);
 		authResponse.setBasicUserDetails(basicUserDetailsService.findByUsername(userRequest.getUsername()));
-		authResponse.setImageData(userImagesService.fetchFirstImage(userRequest.getUsername()).getImageData());
+		//authResponse.setImageData(userImagesService.fetchFirstImage(userRequest.getUsername()).getImageData());
 		
 		return ResponseEntity.ok(authResponse);
 	}

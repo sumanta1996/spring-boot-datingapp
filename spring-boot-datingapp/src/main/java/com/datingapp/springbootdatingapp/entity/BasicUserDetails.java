@@ -1,5 +1,7 @@
 package com.datingapp.springbootdatingapp.entity;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -51,6 +54,9 @@ public class BasicUserDetails {
     @JoinColumn(name = "username")
 	@JsonIgnore	//Adding this because bidirectional mapping is cause stack overflow error. So adding @JsonIgnore to ignore this datatype
 	private User user;
+	
+	@OneToMany(mappedBy="basicUserDetails")
+    private Set<UserImages> userImages;
 	
 	public BasicUserDetails() {}
 
@@ -140,5 +146,13 @@ public class BasicUserDetails {
 
 	public void setLivingIn(String livingIn) {
 		this.livingIn = livingIn;
+	}
+
+	public Set<UserImages> getUserImages() {
+		return userImages;
+	}
+
+	public void setUserImages(Set<UserImages> userImages) {
+		this.userImages = userImages;
 	}
 }

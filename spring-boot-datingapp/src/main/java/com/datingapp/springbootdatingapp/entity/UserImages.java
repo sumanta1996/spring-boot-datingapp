@@ -3,16 +3,21 @@ package com.datingapp.springbootdatingapp.entity;
 import java.sql.Date;
 import java.util.Arrays;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "user_images")
@@ -40,6 +45,11 @@ public class UserImages {
 	@Column(name = "last_updated")
 	@UpdateTimestamp	//update timestamp when update occurs
 	private Date lastUpdated;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="username", insertable = false, updatable = false)
+	@JsonIgnore
+    private BasicUserDetails basicUserDetails;
 	
 	public UserImages() {}
 
@@ -102,6 +112,14 @@ public class UserImages {
 	public String toString() {
 		return "UserImages [id=" + id + ", username=" + username + ", imageData=" + imageData
 				+ ", order=" + ordering + ", dateCreated=" + dateCreated + "]";
+	}
+
+	public BasicUserDetails getBasicUserDetails() {
+		return basicUserDetails;
+	}
+
+	public void setBasicUserDetails(BasicUserDetails basicUserDetails) {
+		this.basicUserDetails = basicUserDetails;
 	}
 	
 }

@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.datingapp.springbootdatingapp.dto.ResponseData;
 import com.datingapp.springbootdatingapp.dto.UserImageOrder;
+import com.datingapp.springbootdatingapp.entity.BasicUserDetails;
 import com.datingapp.springbootdatingapp.entity.UserImages;
 import com.datingapp.springbootdatingapp.entity.UserMatchingIdentity;
 import com.datingapp.springbootdatingapp.entity.UserMatchingStage;
@@ -81,5 +82,9 @@ public class UserController {
 		return basicUserDetailsService.fetchBasicUserDetailsAlongWithImage(loggedInUser.getUsername());
 	}
 	
-	
+	@GetMapping("/fetchAllMatches")
+	public List<BasicUserDetails> fetchAllMatches() {
+		CustomUserBean loggedInUser = (CustomUserBean) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return userMatchingService.fetchAllMatches(loggedInUser.getUsername());
+	}
 }

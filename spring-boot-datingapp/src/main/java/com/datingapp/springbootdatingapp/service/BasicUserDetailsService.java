@@ -34,7 +34,7 @@ public class BasicUserDetailsService {
 		
 		Map<String, Object> response = new HashMap<String, Object>();
 		response.put("basicUserDetails", basicUserDetailsRepo.findByUsername(username));
-		response.put("imageData", userImagesService.fetchFirstImage(username).getImageData());
+		//response.put("imageData", userImagesService.fetchFirstImage(username).getImageData());
 		
 		return response;
 	}

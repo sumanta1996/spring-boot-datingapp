@@ -7,6 +7,11 @@ import javax.persistence.Embeddable;
 
 public class UserMatchingIdentity implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private String username;
 	
 	private String usernameSwiped;

@@ -1,5 +1,7 @@
 package com.datingapp.springbootdatingapp.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -74,5 +76,12 @@ public class UserMatchingService {
 			
 			return new ResponseData(3, "It's a Match.", userDetailsMatched);
 		}
+	}
+	
+	public List<BasicUserDetails> fetchAllMatches(String username) {
+		//This will fetch all the users with whom logged in user have match with
+		List<String> usersList = userMatchedInfoRepo.fetchLogginUserMatches(username);
+		
+		return basicUserDetailsRepo.findAllById(usersList);
 	}
 }
