@@ -1,6 +1,9 @@
 package com.datingapp.springbootdatingapp.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -80,8 +83,24 @@ public class UserMatchingService {
 	
 	public List<BasicUserDetails> fetchAllMatches(String username) {
 		//This will fetch all the users with whom logged in user have match with
-		List<String> usersList = userMatchedInfoRepo.fetchLogginUserMatches(username);
+		List<UserMatchedInfo> usersMatchedInfoList = userMatchedInfoRepo.fetchLogginUserMatches(username);
 		
-		return basicUserDetailsRepo.findAllById(usersList);
+		Map<String, UserMatchedInfo> modifiedList = new HashMap<String, UserMatchedInfo>();
+		
+		for(int i=0;i<usersMatchedInfoList.size();i++) {
+			UserMatchedInfo userMatchedInfo = usersMatchedInfoList.get(i);
+			modifiedList.put(userMatchedInfo.getUsernameSwiped(), userMatchedInfo);
+		}
+		
+		List<BasicUserDetails> allMatchesData = basicUserDetailsRepo.findAllById(modifiedList.keySet());
+		for(int i=0;i<allMatchesData.size();i++) {
+			String tempUser = allMatchesData.get(i).getUsername();
+			UserMatchedInfo tempObj = modifiedList.get(tempUser);
+			
+			allMatchesData.get(i).setConversationId(tempObj.getId());
+			allMatchesData.get(i).setMatchedDate(tempObj.getDateCreated().toString());
+		}
+		
+		return allMatchesData;
 	}
 }

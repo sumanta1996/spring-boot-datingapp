@@ -12,6 +12,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -57,6 +58,18 @@ public class BasicUserDetails {
 	
 	@OneToMany(mappedBy="basicUserDetails")
     private Set<UserImages> userImages;
+	
+	@Column(name = "sexuality")
+	private String sexuality;
+	
+	@Transient
+	private Long conversationId;
+	
+	@Transient
+	private String matchedDate;
+	
+	@Transient
+	private ConversationsEntity convEntity;
 	
 	public BasicUserDetails() {}
 
@@ -154,5 +167,37 @@ public class BasicUserDetails {
 
 	public void setUserImages(Set<UserImages> userImages) {
 		this.userImages = userImages;
+	}
+
+	public Long getConversationId() {
+		return conversationId;
+	}
+
+	public void setConversationId(Long conversationId) {
+		this.conversationId = conversationId;
+	}
+
+	public String getMatchedDate() {
+		return matchedDate;
+	}
+
+	public void setMatchedDate(String matchedDate) {
+		this.matchedDate = matchedDate;
+	}
+
+	public ConversationsEntity getConvEntity() {
+		return convEntity;
+	}
+
+	public void setConvEntity(ConversationsEntity convEntity) {
+		this.convEntity = convEntity;
+	}
+
+	public String getSexuality() {
+		return sexuality;
+	}
+
+	public void setSexuality(String sexuality) {
+		this.sexuality = sexuality;
 	}
 }

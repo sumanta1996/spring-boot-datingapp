@@ -57,7 +57,7 @@ public class AuthController {
 
 		userRequest.setPassword(encoder.encode(userRequest.getPassword()));
 		regRepo.save(userRequest);
-		return ResponseEntity.ok(new ResponseData(1,"User signed up successfully", null));
+		return ResponseEntity.ok(new ResponseData(1,"User signed up successfully Please Login to continue.", null));
 	}
 
 	@PostMapping("/login")

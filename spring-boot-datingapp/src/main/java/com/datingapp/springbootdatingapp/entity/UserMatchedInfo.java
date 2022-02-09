@@ -4,6 +4,8 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
@@ -12,14 +14,19 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "user_matched_info")
-@IdClass(UserMatchingIdentity.class)
+//@IdClass(UserMatchingIdentity.class)
 public class UserMatchedInfo {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
+	
+	//@Id
 	@Column(name = "username")
 	private String username;
 	
-	@Id
+	//@Id
 	@Column(name = "username_swiped")
 	private String usernameSwiped;
 	
@@ -60,5 +67,15 @@ public class UserMatchedInfo {
 
 	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
+	}
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }
